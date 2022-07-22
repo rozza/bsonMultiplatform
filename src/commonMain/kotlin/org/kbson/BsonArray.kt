@@ -51,18 +51,18 @@ class BsonArray(initial: List<BsonValue> = emptyList()) : BsonValue(), List<Bson
         return values.containsAll(elements)
     }
 
-    override fun equals(o: Any?): Boolean {
-        if (this === o) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
             return true
         }
-        if (o !is BsonArray) {
+        if (other !is BsonArray) {
             return false
         }
-        return getValues() == o.getValues()
+        return getValues() == other.getValues()
     }
 
     override fun get(index: Int): BsonValue {
-        return values.get(index)
+        return values[index]
     }
 
     override fun hashCode(): Int {
@@ -98,28 +98,10 @@ class BsonArray(initial: List<BsonValue> = emptyList()) : BsonValue(), List<Bson
     }
 
     override fun toString(): String {
-        return ("BsonArray{" + "values=" + values + '}')
+        return "BsonArray{values=$values}"
     }
 
-    // TODO("CLONE")
     fun clone(): BsonArray {
         TODO("Not yet implemented")
     }
-    //
-    //    companion object {
-    //        /**
-    //         * Parses a string in MongoDB Extended JSON format to a `BsonArray`
-    //         *
-    //         * @param json the JSON string
-    //         * @return a corresponding `BsonArray` object
-    //         * @see org.bson.multi.json.JsonReader
-    //         *
-    //         * @mongodb.driver.manual reference/mongodb-extended-json/ MongoDB Extended JSON
-    //         *
-    //         * @since 3.4
-    //         */
-    //        fun parse(json: String?): BsonArray {
-    //            return BsonArrayCodec().decode(JsonReader(json), DecoderContext.builder().build())
-    //        }
-    //    }
 }

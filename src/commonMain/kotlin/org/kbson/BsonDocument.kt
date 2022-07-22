@@ -46,6 +46,11 @@ class BsonDocument(map: Map<String, BsonValue> = LinkedHashMap()) :
 
     override fun getBsonType(): BsonType = BsonType.DOCUMENT
 
+    /** Clone the document */
+    fun clone(): BsonDocument {
+        TODO("Not yet implemented")
+    }
+
     /**
      * Returns true if the value of the key is a BsonNull, returns false if the document does not
      * contain the key.
@@ -438,7 +443,7 @@ class BsonDocument(map: Map<String, BsonValue> = LinkedHashMap()) :
      */
     fun getDocument(key: String): BsonDocument {
         throwIfKeyAbsent(key)
-        return get(key)!!.asDocument()!!
+        return get(key)!!.asDocument()
     }
 
     /**
@@ -451,7 +456,7 @@ class BsonDocument(map: Map<String, BsonValue> = LinkedHashMap()) :
      */
     fun getArray(key: String): BsonArray {
         throwIfKeyAbsent(key)
-        return get(key)!!.asArray()!!
+        return get(key)!!.asArray()
     }
 
     /**
@@ -464,7 +469,7 @@ class BsonDocument(map: Map<String, BsonValue> = LinkedHashMap()) :
      */
     fun getNumber(key: String): BsonNumber {
         throwIfKeyAbsent(key)
-        return get(key)!!.asNumber()!!
+        return get(key)!!.asNumber()
     }
 
     /**
@@ -477,7 +482,7 @@ class BsonDocument(map: Map<String, BsonValue> = LinkedHashMap()) :
      */
     fun getInt32(key: String): BsonInt32 {
         throwIfKeyAbsent(key)
-        return get(key)!!.asInt32()!!
+        return get(key)!!.asInt32()
     }
 
     /**
@@ -490,7 +495,7 @@ class BsonDocument(map: Map<String, BsonValue> = LinkedHashMap()) :
      */
     fun getInt64(key: String): BsonInt64 {
         throwIfKeyAbsent(key)
-        return get(key)!!.asInt64()!!
+        return get(key)!!.asInt64()
     }
 
     /**
@@ -504,7 +509,7 @@ class BsonDocument(map: Map<String, BsonValue> = LinkedHashMap()) :
      */
     fun getDecimal128(key: String): BsonDecimal128 {
         throwIfKeyAbsent(key)
-        return get(key)!!.asDecimal128()!!
+        return get(key)!!.asDecimal128()
     }
 
     /**
@@ -517,7 +522,7 @@ class BsonDocument(map: Map<String, BsonValue> = LinkedHashMap()) :
      */
     fun getDouble(key: String): BsonDouble {
         throwIfKeyAbsent(key)
-        return get(key)!!.asDouble()!!
+        return get(key)!!.asDouble()
     }
 
     /**
@@ -530,7 +535,7 @@ class BsonDocument(map: Map<String, BsonValue> = LinkedHashMap()) :
      */
     fun getBoolean(key: String): BsonBoolean {
         throwIfKeyAbsent(key)
-        return get(key)!!.asBoolean()!!
+        return get(key)!!.asBoolean()
     }
 
     /**
@@ -543,7 +548,7 @@ class BsonDocument(map: Map<String, BsonValue> = LinkedHashMap()) :
      */
     fun getString(key: String): BsonString {
         throwIfKeyAbsent(key)
-        return get(key)!!.asString()!!
+        return get(key)!!.asString()
     }
 
     /**
@@ -556,7 +561,7 @@ class BsonDocument(map: Map<String, BsonValue> = LinkedHashMap()) :
      */
     fun getDateTime(key: String): BsonDateTime {
         throwIfKeyAbsent(key)
-        return get(key)!!.asDateTime()!!
+        return get(key)!!.asDateTime()
     }
 
     /**
@@ -569,7 +574,7 @@ class BsonDocument(map: Map<String, BsonValue> = LinkedHashMap()) :
      */
     fun getTimestamp(key: String): BsonTimestamp {
         throwIfKeyAbsent(key)
-        return get(key)!!.asTimestamp()!!
+        return get(key)!!.asTimestamp()
     }
 
     /**
@@ -582,7 +587,7 @@ class BsonDocument(map: Map<String, BsonValue> = LinkedHashMap()) :
      */
     fun getObjectId(key: String): BsonObjectId {
         throwIfKeyAbsent(key)
-        return get(key)!!.asObjectId()!!
+        return get(key)!!.asObjectId()
     }
 
     /**
@@ -595,7 +600,7 @@ class BsonDocument(map: Map<String, BsonValue> = LinkedHashMap()) :
      */
     fun getRegularExpression(key: String): BsonRegularExpression {
         throwIfKeyAbsent(key)
-        return get(key)!!.asRegularExpression()!!
+        return get(key)!!.asRegularExpression()
     }
 
     /**
@@ -608,7 +613,7 @@ class BsonDocument(map: Map<String, BsonValue> = LinkedHashMap()) :
      */
     fun getBinary(key: String): BsonBinary {
         throwIfKeyAbsent(key)
-        return get(key)!!.asBinary()!!
+        return get(key)!!.asBinary()
     }
 
     companion object {

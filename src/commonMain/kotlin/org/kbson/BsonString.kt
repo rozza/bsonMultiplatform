@@ -18,8 +18,8 @@ package org.kbson
 /** A representation of the BSON String type. */
 class BsonString(val value: String) : BsonValue(), Comparable<BsonString> {
 
-    override fun compareTo(o: BsonString): Int {
-        return value.compareTo(o.value)
+    override fun compareTo(other: BsonString): Int {
+        return value.compareTo(other.value)
     }
 
     override fun getBsonType(): BsonType = BsonType.STRING

@@ -15,14 +15,11 @@
  */
 package org.kbson
 
-import org.bson.multi.BsonType
-import org.bson.multi.BsonValue
-
 /** A representation of the BSON Boolean type. */
 class BsonBoolean(val value: Boolean) : BsonValue(), Comparable<BsonBoolean> {
 
-    override fun compareTo(o: BsonBoolean): Int {
-        return value.compareTo(o.value)
+    override fun compareTo(other: BsonBoolean): Int {
+        return value.compareTo(other.value)
     }
 
     override fun getBsonType(): BsonType {

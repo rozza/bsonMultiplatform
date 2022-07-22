@@ -16,8 +16,8 @@
 package org.kbson
 
 /**
- * Base class for the numeric BSON types. This class mirrors the functionality provided by
- * `java.lang.Number`.
+ * Base class for the numeric BSON types. This class mirrors the functionality provided by the java
+ * `Number` class.
  */
 abstract class BsonNumber : BsonValue() {
     /**
@@ -42,12 +42,4 @@ abstract class BsonNumber : BsonValue() {
      * @return the numeric value represented by this object after conversion to type `double`.
      */
     abstract fun doubleValue(): Double
-
-    /**
-     * Returns the value of the specified number as a `Decimal128`, which may involve rounding.
-     *
-     * @return the numeric value represented by this object after conversion to type `Decimal128`.
-     * @since 3.4
-     */
-    abstract fun decimal128Value(): Long
 }

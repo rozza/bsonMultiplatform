@@ -27,7 +27,7 @@ class BsonBinary(val type: Byte, val data: ByteArray) : BsonValue() {
      *
      * @param data the data
      *
-     * @see org.bson.multi.BsonBinarySubType.BINARY
+     * @see org.kbson.multi.BsonBinarySubType.BINARY
      */
     constructor(data: ByteArray) : this(BsonBinarySubType.BINARY.value, data)
 
@@ -37,7 +37,7 @@ class BsonBinary(val type: Byte, val data: ByteArray) : BsonValue() {
      * @param data the data
      * @param type the binary sub type
      *
-     * @see org.bson.multi.BsonBinarySubType.BINARY
+     * @see org.kbson.multi.BsonBinarySubType.BINARY
      */
     constructor(type: BsonBinarySubType, data: ByteArray) : this(type.value, data)
 

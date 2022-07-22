@@ -30,10 +30,6 @@ class BsonInt64(val value: Long) : BsonNumber(), Comparable<BsonInt64> {
         return value.toDouble()
     }
 
-    override fun decimal128Value(): Long {
-        TODO("Not yet implemented")
-    }
-
     override fun getBsonType(): BsonType {
         return BsonType.INT32
     }

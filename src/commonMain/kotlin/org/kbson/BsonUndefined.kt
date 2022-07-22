@@ -21,7 +21,7 @@ package org.kbson
  *
  * @see [BSON Spec](http://bsonspec.org/spec.html)
  *
- * @see org.bson.multi.BsonType.UNDEFINED
+ * @see org.kbson.multi.BsonType.UNDEFINED
  */
 class BsonUndefined() : BsonValue() {
 

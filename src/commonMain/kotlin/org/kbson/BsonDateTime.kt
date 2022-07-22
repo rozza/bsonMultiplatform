@@ -18,8 +18,8 @@ package org.kbson
 /** A representation of the BSON DateTime type. */
 class BsonDateTime(val value: Long) : BsonValue(), Comparable<BsonDateTime> {
 
-    override fun compareTo(o: BsonDateTime): Int {
-        return value.compareTo(o.value)
+    override fun compareTo(other: BsonDateTime): Int {
+        return value.compareTo(other.value)
     }
 
     override fun getBsonType(): BsonType {

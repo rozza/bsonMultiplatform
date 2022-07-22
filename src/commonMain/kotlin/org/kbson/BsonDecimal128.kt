@@ -16,25 +16,51 @@
 package org.kbson
 
 /** A representation of the BSON Decimal128 type. */
-class BsonDecimal128(val value: Long) : BsonNumber() {
+class BsonDecimal128(val high: Long, val low: Long) : BsonValue() {
 
     override fun getBsonType(): BsonType {
         return BsonType.DECIMAL128
     }
 
-    override fun intValue(): Int {
-        return value.toInt()
+    /**
+     * Returns true if this Decimal128 is negative.
+     *
+     * @return true if this Decimal128 is negative
+     */
+    fun isNegative(): Boolean {
+        return (high and SIGN_BIT_MASK) == SIGN_BIT_MASK
     }
 
-    override fun longValue(): Long {
-        return value
+    /**
+     * Returns true if this Decimal128 is infinite.
+     *
+     * @return true if this Decimal128 is infinite
+     */
+    fun isInfinite(): Boolean {
+        return (high and INFINITY_MASK) == INFINITY_MASK
     }
 
-    override fun doubleValue(): Double {
-        return value.toDouble()
+    /**
+     * Returns true if this Decimal128 is finite.
+     *
+     * @return true if this Decimal128 is finite
+     */
+    fun isFinite(): Boolean {
+        return !isInfinite()
     }
 
-    override fun decimal128Value(): Long {
-        TODO("Not yet implemented")
+    /**
+     * Returns true if this Decimal128 is Not-A-Number (NaN).
+     *
+     * @return true if this Decimal128 is Not-A-Number
+     */
+    fun isNaN(): Boolean {
+        return (high and NaN_MASK) == NaN_MASK
+    }
+
+    companion object {
+        private const val INFINITY_MASK = 0x7800000000000000L
+        private const val NaN_MASK = 0x7c00000000000000L
+        private const val SIGN_BIT_MASK = 1L shl 63
     }
 }
