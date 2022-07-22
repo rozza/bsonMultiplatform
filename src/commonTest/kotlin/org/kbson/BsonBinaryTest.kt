@@ -17,6 +17,7 @@ package org.kbson
 
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertNotEquals
 
 class BsonBinaryTest {
 
@@ -26,42 +27,74 @@ class BsonBinaryTest {
             .toByteArray()
 
     @Test
-    fun shouldInitializeWithData() {
-        val bsonBinary = BsonBinary(data)
+    fun shouldHaveTheExpectedBsonType() {
+        assertEquals(BsonType.BINARY, BsonBinary(ByteArray(0)).getBsonType())
+    }
 
-        assertEquals(data, bsonBinary.data)
-        assertEquals(BsonBinarySubType.BINARY.value, bsonBinary.type)
+    @Test
+    fun shouldHaveAccessToTheUnderlyingValues() {
+        val bsonValue = BsonBinary(data)
+
+        assertEquals(data, bsonValue.data)
+        assertEquals(BsonBinarySubType.BINARY.value, bsonValue.type)
     }
 
     @Test
     fun shouldInitializeWithDataAndSubType() {
-        var bsonBinary = BsonBinary(BsonBinarySubType.BINARY, data)
+        var bsonValue = BsonBinary(BsonBinarySubType.BINARY, data)
 
-        assertEquals(BsonBinarySubType.BINARY.value, bsonBinary.type)
-        assertEquals(data, bsonBinary.data)
+        assertEquals(BsonBinarySubType.BINARY.value, bsonValue.type)
+        assertEquals(data, bsonValue.data)
 
-        bsonBinary = BsonBinary(BsonBinarySubType.FUNCTION, data)
-        assertEquals(BsonBinarySubType.FUNCTION.value, bsonBinary.type)
-        assertEquals(data, bsonBinary.data)
+        bsonValue = BsonBinary(BsonBinarySubType.FUNCTION, data)
+        assertEquals(BsonBinarySubType.FUNCTION.value, bsonValue.type)
+        assertEquals(data, bsonValue.data)
 
-        bsonBinary = BsonBinary(BsonBinarySubType.MD5, data)
-        assertEquals(BsonBinarySubType.MD5.value, bsonBinary.type)
-        assertEquals(data, bsonBinary.data)
+        bsonValue = BsonBinary(BsonBinarySubType.MD5, data)
+        assertEquals(BsonBinarySubType.MD5.value, bsonValue.type)
+        assertEquals(data, bsonValue.data)
 
-        bsonBinary = BsonBinary(BsonBinarySubType.OLD_BINARY, data)
-        assertEquals(BsonBinarySubType.OLD_BINARY.value, bsonBinary.type)
-        assertEquals(data, bsonBinary.data)
+        bsonValue = BsonBinary(BsonBinarySubType.OLD_BINARY, data)
+        assertEquals(BsonBinarySubType.OLD_BINARY.value, bsonValue.type)
+        assertEquals(data, bsonValue.data)
 
-        bsonBinary = BsonBinary(BsonBinarySubType.USER_DEFINED, data)
-        assertEquals(BsonBinarySubType.USER_DEFINED.value, bsonBinary.type)
-        assertEquals(data, bsonBinary.data)
+        bsonValue = BsonBinary(BsonBinarySubType.USER_DEFINED, data)
+        assertEquals(BsonBinarySubType.USER_DEFINED.value, bsonValue.type)
+        assertEquals(data, bsonValue.data)
 
-        bsonBinary = BsonBinary(BsonBinarySubType.UUID_LEGACY, data)
-        assertEquals(BsonBinarySubType.UUID_LEGACY.value, bsonBinary.type)
-        assertEquals(data, bsonBinary.data)
+        bsonValue = BsonBinary(BsonBinarySubType.UUID_LEGACY, data)
+        assertEquals(BsonBinarySubType.UUID_LEGACY.value, bsonValue.type)
+        assertEquals(data, bsonValue.data)
 
-        bsonBinary = BsonBinary(BsonBinarySubType.UUID_STANDARD, data)
-        assertEquals(BsonBinarySubType.UUID_STANDARD.value, bsonBinary.type)
-        assertEquals(data, bsonBinary.data)
+        bsonValue = BsonBinary(BsonBinarySubType.UUID_STANDARD, data)
+        assertEquals(BsonBinarySubType.UUID_STANDARD.value, bsonValue.type)
+        assertEquals(data, bsonValue.data)
+
+        bsonValue = BsonBinary(BsonBinarySubType.ENCRYPTED, data)
+        assertEquals(BsonBinarySubType.ENCRYPTED.value, bsonValue.type)
+        assertEquals(data, bsonValue.data)
+
+        bsonValue = BsonBinary(BsonBinarySubType.COLUMN, data)
+        assertEquals(BsonBinarySubType.COLUMN.value, bsonValue.type)
+        assertEquals(data, bsonValue.data)
+    }
+
+    @Test
+    fun shouldOverrideEquals() {
+        assertEquals(
+            BsonBinary(BsonBinarySubType.BINARY, data), BsonBinary(BsonBinarySubType.BINARY, data))
+        assertNotEquals(
+            BsonBinary(BsonBinarySubType.BINARY, data),
+            BsonBinary(BsonBinarySubType.USER_DEFINED, data))
+    }
+
+    @Test
+    fun implementsClone() {
+        val original = BsonBinary(BsonBinarySubType.BINARY, data)
+        val clone = original.clone()
+        assertEquals(original, clone)
+
+        original.data[0] = 9
+        assertNotEquals(original, clone)
     }
 }

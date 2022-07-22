@@ -125,3 +125,5 @@ spotless {
         endWithNewline()
     }
 }
+
+tasks.named("compileKotlinJvm") { dependsOn(":spotlessApply") }

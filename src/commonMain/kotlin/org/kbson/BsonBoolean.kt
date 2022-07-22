@@ -18,16 +18,12 @@ package org.kbson
 /** A representation of the BSON Boolean type. */
 class BsonBoolean(val value: Boolean) : BsonValue(), Comparable<BsonBoolean> {
 
-    override fun compareTo(other: BsonBoolean): Int {
-        return value.compareTo(other.value)
-    }
-
     override fun getBsonType(): BsonType {
         return BsonType.BOOLEAN
     }
 
-    override fun hashCode(): Int {
-        return if (value) 1 else 0
+    override fun compareTo(other: BsonBoolean): Int {
+        return value.compareTo(other.value)
     }
 
     override fun equals(other: Any?): Boolean {
@@ -39,6 +35,10 @@ class BsonBoolean(val value: Boolean) : BsonValue(), Comparable<BsonBoolean> {
         if (value != other.value) return false
 
         return true
+    }
+
+    override fun hashCode(): Int {
+        return if (value) 1 else 0
     }
 
     override fun toString(): String {

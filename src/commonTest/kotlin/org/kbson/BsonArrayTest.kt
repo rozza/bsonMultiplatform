@@ -19,27 +19,37 @@ import kotlin.test.*
 
 class BsonArrayTest {
 
+    val listOfBsonValues = listOf(BsonBoolean.TRUE, BsonBoolean.FALSE)
+
     @Test
-    fun shouldBeArrayType() {
+    fun shouldHaveTheExpectedBsonType() {
         assertEquals(BsonType.ARRAY, BsonArray().getBsonType())
     }
 
     @Test
     fun shouldConstructAnEmptyArray() {
-        val bsonArray = BsonArray()
+        val bsonValue = BsonArray()
 
-        assertTrue(bsonArray.isEmpty())
-        assertEquals(0, bsonArray.size)
-        assertTrue(bsonArray.getValues().isEmpty())
+        assertTrue(bsonValue.isEmpty())
+        assertEquals(0, bsonValue.size)
+        assertTrue(bsonValue.values.isEmpty())
     }
 
     @Test
     fun shouldConstructFromAList() {
-        val bsonValues = listOf(BsonBoolean.TRUE, BsonBoolean.FALSE)
-        val bsonArray = BsonArray(bsonValues)
+        val bsonValue = BsonArray(listOfBsonValues)
 
-        assertFalse(bsonArray.isEmpty())
-        assertEquals(2, bsonArray.size)
-        assertContentEquals(bsonValues, bsonArray.getValues())
+        assertFalse(bsonValue.isEmpty())
+        assertEquals(2, bsonValue.size)
+        assertContentEquals(listOfBsonValues, bsonValue.values)
+    }
+
+    @Test
+    fun shouldOverrideEquals() {
+        assertEquals(BsonArray(), BsonArray())
+        assertEquals(BsonArray(listOfBsonValues), BsonArray(listOfBsonValues))
+        assertNotEquals(BsonArray(), BsonArray(listOfBsonValues))
+        assertNotEquals(
+            BsonArray(listOfBsonValues), BsonArray(listOf(BsonBoolean.TRUE, BsonBoolean.TRUE)))
     }
 }

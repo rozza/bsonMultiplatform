@@ -15,15 +15,16 @@
  */
 package org.kbson
 
+import org.kbson.ext.getCurrentTimeInMillis
+
 /** A representation of the BSON DateTime type. */
 class BsonDateTime(val value: Long) : BsonValue(), Comparable<BsonDateTime> {
+    override fun getBsonType(): BsonType {
+        return BsonType.DATE_TIME
+    }
 
     override fun compareTo(other: BsonDateTime): Int {
         return value.compareTo(other.value)
-    }
-
-    override fun getBsonType(): BsonType {
-        return BsonType.DATE_TIME
     }
 
     override fun equals(other: Any?): Boolean {
@@ -43,5 +44,11 @@ class BsonDateTime(val value: Long) : BsonValue(), Comparable<BsonDateTime> {
 
     override fun toString(): String {
         return "BsonDateTime(value=$value)"
+    }
+
+    companion object {
+        operator fun invoke(): BsonDateTime {
+            return BsonDateTime(getCurrentTimeInMillis())
+        }
     }
 }

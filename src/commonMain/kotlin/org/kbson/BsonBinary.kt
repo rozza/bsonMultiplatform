@@ -45,13 +45,29 @@ class BsonBinary(val type: Byte, val data: ByteArray) : BsonValue() {
         return BsonType.BINARY
     }
 
+    fun clone(): BsonBinary {
+        return BsonBinary(type, data.copyOf())
+    }
+
     override fun toString(): String {
         return ("BsonBinary{" + "type=" + type + ", data=" + data.toString() + '}')
     }
 
-    companion object {
-        fun clone(from: BsonBinary): BsonBinary {
-            return BsonBinary(from.type, from.data.copyOf())
-        }
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null || this::class != other::class) return false
+
+        other as BsonBinary
+
+        if (type != other.type) return false
+        if (!data.contentEquals(other.data)) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = type.toInt()
+        result = 31 * result + data.contentHashCode()
+        return result
     }
 }

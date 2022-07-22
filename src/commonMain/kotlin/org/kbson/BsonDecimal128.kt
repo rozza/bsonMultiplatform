@@ -58,6 +58,28 @@ class BsonDecimal128(val high: Long, val low: Long) : BsonValue() {
         return (high and NaN_MASK) == NaN_MASK
     }
 
+    override fun toString(): String {
+        return "BsonDecimal128(high=$high, low=$low)"
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null || this::class != other::class) return false
+
+        other as BsonDecimal128
+
+        if (high != other.high) return false
+        if (low != other.low) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = high.hashCode()
+        result = 31 * result + low.hashCode()
+        return result
+    }
+
     companion object {
         private const val INFINITY_MASK = 0x7800000000000000L
         private const val NaN_MASK = 0x7c00000000000000L

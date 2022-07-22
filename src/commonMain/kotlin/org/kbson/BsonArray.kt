@@ -16,8 +16,10 @@
 package org.kbson
 
 class BsonArray(initial: List<BsonValue> = emptyList()) : BsonValue(), List<BsonValue> {
-    override val size: Int = initial.size
-    private val values: MutableList<BsonValue> = initial.toMutableList()
+    val values: MutableList<BsonValue>
+    init {
+        values = initial.toMutableList()
+    }
 
     /**
      * Construct an empty BsonArray with the specified initial capacity.
@@ -28,15 +30,6 @@ class BsonArray(initial: List<BsonValue> = emptyList()) : BsonValue(), List<Bson
      */
     constructor(initialCapacity: Int) : this() {
         ArrayList<BsonValue>(initialCapacity)
-    }
-
-    /**
-     * Gets the values in this array as a list of `BsonValue` objects.
-     *
-     * @return the values in this array.
-     */
-    fun getValues(): List<BsonValue> {
-        return values.toList()
     }
 
     override fun getBsonType(): BsonType {
@@ -51,22 +44,8 @@ class BsonArray(initial: List<BsonValue> = emptyList()) : BsonValue(), List<Bson
         return values.containsAll(elements)
     }
 
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-        if (other !is BsonArray) {
-            return false
-        }
-        return getValues() == other.getValues()
-    }
-
     override fun get(index: Int): BsonValue {
         return values[index]
-    }
-
-    override fun hashCode(): Int {
-        return values.hashCode()
     }
 
     override fun isEmpty(): Boolean {
@@ -103,5 +82,23 @@ class BsonArray(initial: List<BsonValue> = emptyList()) : BsonValue(), List<Bson
 
     fun clone(): BsonArray {
         TODO("Not yet implemented")
+    }
+
+    override val size: Int
+        get() = values.size
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null || this::class != other::class) return false
+
+        other as BsonArray
+
+        if (values != other.values) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return values.hashCode()
     }
 }
